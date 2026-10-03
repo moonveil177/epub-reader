@@ -2,7 +2,7 @@
 
 An offline EPUB reader for the iPhone that runs in the browser. No account, no ads, no server: your books, reading position and stats stay on your device.
 
-**Open the app: [moonveil177.github.io/folio](https://moonveil177.github.io/epub-reader/)**
+**Open the app: [moonveil177.github.io/epub-reader](https://moonveil177.github.io/epub-reader/)**
 
 ![Folio: library, reading view, controls and stats](docs/screenshot.png)
 
@@ -18,7 +18,7 @@ An offline EPUB reader for the iPhone that runs in the browser. No account, no a
 
 ## Install on iPhone
 
-1. Open [moonveil177.github.io/folio](https://moonveil177.github.io/epub-reader/) in **Safari**.
+1. Open [moonveil177.github.io/epub-reader](https://moonveil177.github.io/epub-reader/) in **Safari**.
 2. Tap **Share**, then **Add to Home Screen**.
 3. Start Folio once from the new icon while you are online. From then on it works without internet.
 4. Tap **+** and pick EPUB files from the Files app.
