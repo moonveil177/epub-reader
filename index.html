@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en" data-ui="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Folio</title>
+<meta name="description" content="Offline EPUB reader that runs in the browser. Books, reading position and stats stay on your device.">
+<meta name="theme-color" content="#191713">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Folio">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="preload" href="fonts/Lora.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<!-- Text marked with data-i18n is replaced at start with the chosen language (see i18n.js). -->
+
+<!-- Library -->
+<main id="library" class="view">
+  <div class="page">
+    <header class="head">
+      <h1 data-i18n="lib.title">Library</h1>
+      <button class="chip" id="streak-chip">
+        <svg class="flame" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.9 2.3c.2 2.6 1.6 4.2 3.1 5.9 1.6 1.8 3.2 3.8 3.2 6.8a7.2 7.2 0 0 1-14.4 0c0-2.3 1-4.2 2.5-5.6.1 1.4.7 2.5 1.7 3.1-.2-3.700.9-7.600 3.900-10.200z"/></svg>
+        <span id="streak-n">0</span>
+      </button>
+      <button class="round" id="btn-add" data-i18n-aria="lib.add" aria-label="Add book">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+    </header>
+    <div id="install-hint" class="hint" hidden>
+      <p data-i18n-html="hint.html"></p>
+      <button id="hint-close" data-i18n="hint.ok">Got it</button>
+    </div>
+    <div id="hero"></div>
+    <div id="shelf-head" class="sec-head" hidden><h2></h2><span id="shelf-n"></span></div>
+    <div id="book-grid" class="grid"></div>
+    <div id="lib-empty" class="empty" hidden>
+      <p class="empty-title" data-i18n="empty.title">Your shelf is empty</p>
+      <p data-i18n="empty.text">Add an EPUB file from your device. It stays on this device only.</p>
+      <button class="btn" id="btn-add-empty" data-i18n="empty.add">Add EPUB</button>
+    </div>
+    <input type="file" id="file" class="vh" accept=".epub,application/epub+zip" multiple tabindex="-1" aria-hidden="true">
+  </div>
+</main>
+
+<!-- Stats -->
+<section id="stats" class="view" hidden>
+  <div class="page">
+    <header class="head"><h1 data-i18n="stats.title">Stats</h1></header>
+    <div id="stats-body"></div>
+  </div>
+</section>
+
+<nav id="tabbar" class="glass" data-i18n-aria="nav" aria-label="Main navigation">
+  <button data-go="library" aria-current="page">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.500v15M9.500 4.500v15M14 6l4.300 13.400M3.500 20h17"/></svg><span data-i18n="tab.library">Library</span>
+  </button>
+  <button data-go="stats">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20v-8M12 20V5M19 20v-5"/></svg><span data-i18n="tab.stats">Stats</span>
+  </button>
+  <button id="btn-settings">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.500h9M19 7.500h1M4 16.500h1M11 16.500h9"/><circle cx="16" cy="7.500" r="2.500"/><circle cx="8" cy="16.500" r="2.500"/></svg><span data-i18n="tab.look">Appearance</span>
+  </button>
+</nav>
+
+<!-- Reader: text only. The controls appear after a tap. -->
+<section id="reader" class="view" hidden>
+  <div id="scroller">
+    <div id="top-more" hidden><button id="btn-prev" data-i18n="reader.prev">Load previous section</button></div>
+    <article id="book" class="book"></article>
+    <div id="book-end" hidden><span data-i18n="reader.end">The end</span></div>
+  </div>
+  <div id="controls" class="glass">
+    <button id="ctl-return" data-i18n="reader.return" hidden>Back to where I was</button>
+    <div class="ctl-top"><span id="ctl-chapter"></span><span id="ctl-pct"></span></div>
+    <input type="range" id="scrub" min="0" max="1000" step="1" value="0" data-i18n-aria="reader.position" aria-label="Position in book">
+    <div class="ctl-row">
+      <button id="btn-back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.500 5.500L8 12l6.500 6.500"/></svg><span data-i18n="ctl.library">Library</span></button>
+      <button id="btn-toc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.500h11M9 12h11M9 17.500h11M4.500 6.500h.01M4.500 12h.01M4.500 17.500h.01"/></svg><span data-i18n="ctl.contents">Contents</span></button>
+      <button id="btn-bm"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.500h10v15.500l-5-4-5 4z"/></svg><span data-i18n="ctl.bookmark">Bookmark</span></button>
+      <button id="btn-aa"><b class="aa" aria-hidden="true">Aa</b><span data-i18n="ctl.look">Appearance</span></button>
+    </div>
+  </div>
+  <div id="selbar" class="glass" hidden>
+    <button class="dot" data-c="y" data-i18n-aria="hl.y" aria-label="Highlight yellow"></button>
+    <button class="dot" data-c="g" data-i18n-aria="hl.g" aria-label="Highlight green"></button>
+    <button class="dot" data-c="b" data-i18n-aria="hl.b" aria-label="Highlight blue"></button>
+    <button class="dot" data-c="p" data-i18n-aria="hl.p" aria-label="Highlight pink"></button>
+    <button class="selnote" data-note="1" data-i18n="hl.note">Note</button>
+  </div>
+  <button id="jump-back" data-i18n="reader.return" hidden>Back to where I was</button>
+</section>
+
+<div id="sheet-wrap" hidden>
+  <div id="sheet-backdrop"></div>
+  <div id="sheet" role="dialog" aria-modal="true"></div>
+</div>
+<div id="celebrate" hidden></div>
+<canvas id="confetti" hidden></canvas>
+<div id="toast" role="status" hidden></div>
+
+<script src="db.js"></script>
+<script src="epub.js"></script>
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
