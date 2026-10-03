@@ -18,7 +18,7 @@ An offline EPUB reader for the iPhone that runs in the browser. No account, no a
 
 ## Install on iPhone
 
-1. Open [moonveil177.github.io/folio](https://moonveil177.github.io/folio/) in **Safari**.
+1. Open [moonveil177.github.io/folio](https://moonveil177.github.io/epub-reader/) in **Safari**.
 2. Tap **Share**, then **Add to Home Screen**.
 3. Start Folio once from the new icon while you are online. From then on it works without internet.
 4. Tap **+** and pick EPUB files from the Files app.
@@ -58,8 +58,8 @@ Folio is plain HTML, CSS and JavaScript with no build step and no dependencies.
 **Locally**
 
 ```sh
-git clone https://github.com/moonveil177/folio.git
-cd folio
+git clone https://github.com/moonveil177/epub-reader.git
+cd epub-reader
 python3 -m http.server 8000
 ```
 
@@ -69,7 +69,7 @@ Then open `http://localhost:8000`. Offline mode needs `localhost` or HTTPS.
 
 1. Fork this repository.
 2. In your fork go to **Settings → Pages**, choose **Deploy from a branch**, branch `main`, folder `/ (root)`, and save.
-3. After a few minutes your copy is at `https://YOUR-USERNAME.github.io/folio/`.
+3. After a few minutes your copy is at `https://YOUR-USERNAME.github.io/epub-reader/`.
 
 Any other static host works too. After changing files, raise `VERSION` in `sw.js` so installed copies pick up the update.
 
