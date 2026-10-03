@@ -2,7 +2,7 @@
 
 An offline EPUB reader for the iPhone that runs in the browser. No account, no ads, no server: your books, reading position and stats stay on your device.
 
-**Open the app: [moonveil177.github.io/folio](https://moonveil177.github.io/folio/)**
+**Open the app: [moonveil177.github.io/folio](https://moonveil177.github.io/epub-reader/)**
 
 ![Folio: library, reading view, controls and stats](docs/screenshot.png)
 
